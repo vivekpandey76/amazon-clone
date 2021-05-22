@@ -1,19 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { auth } from "../Main/Firebase";
+import LogoEcommerce from "../LogoImage/LogoEcommerce.png";
 
 function Login() {
+  const history = useHistory();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const signIn = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((auth) => {
+        history.push("/");
+      })
+      .catch((err) => alert(err.message));
+    //Some signIn fire base stuffs
+  };
+
+  const register = (e) => {
+    e.preventDefault();
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+        if (auth) {
+          history.push("/");
+        }
+      })
+      .catch((err) => alert(err.message));
+  };
   return (
     <div className="login">
       <Link to="/">
-        <img
-          className="login__logo"
-          src="https://lh3.googleusercontent.com/proxy/x1J8noE-C3UYRqhCxUiwJt-ZvpmWS1gRhckBvKrnXZxSkjRBdgvQ-0Ek9dfz6EjOIHRxaF6gzgk9ByRFbK5SkDrp22hJ5eyi3YrETW0RHlKJa90_-RgzV4p5MLyv69I9FF5K"
-        />
+        <img className="login__logo" src={LogoEcommerce} />
       </Link>
       <div className="login__container">
         <h1>Sign in</h1>
-        <form></form>
+        <form>
+          <h5>E-mail</h5>
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <h5>Password</h5>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            type="submit"
+            onClick={signIn}
+            className="login__signInButton"
+          >
+            Sign In
+          </button>
+        </form>
+
+        <p>
+          By signing-in you agree to our terms and condition of Use &
+          sale.Please see your privacy notice,our cookies notice and our
+          internet-based ads Notice
+        </p>
+        <button onClick={register} className="login__registerButton">
+          Create your account
+        </button>
       </div>
     </div>
   );

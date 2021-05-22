@@ -15,3 +15,10 @@
   padding: 10px;
   border-bottom: 1px solid rgb(192, 191, 191);
 }
+
+@media (max-width: 1160px) {
+  .checkout {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

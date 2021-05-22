@@ -4,17 +4,20 @@ import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { Link } from "react-router-dom";
 import { useStateValue } from "../ContextApiPart/Stateprovider";
+import { auth } from "../Main/Firebase";
+import LogoEcommerce from "../LogoImage/LogoEcommerce.png";
 
 function Header() {
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ basket, user }, dispatch] = useStateValue();
+  const handleAuthentication = () => {
+    if (user) {
+      auth.signOut();
+    }
+  };
   return (
     <div className="header">
       <Link to="/">
-        <img
-          src="https://lh3.googleusercontent.com/proxy/x1J8noE-C3UYRqhCxUiwJt-ZvpmWS1gRhckBvKrnXZxSkjRBdgvQ-0Ek9dfz6EjOIHRxaF6gzgk9ByRFbK5SkDrp22hJ5eyi3YrETW0RHlKJa90_-RgzV4p5MLyv69I9FF5K"
-          alt="Logo"
-          className="header_logo"
-        />
+        <img src={LogoEcommerce} alt="Logo" className="header_logo" />
       </Link>
       <div className="header__search">
         <input type="text" className="header__searchInput" />
@@ -22,11 +25,15 @@ function Header() {
       </div>
 
       <div className="header__nav">
-        <Link to="/login" style={{ textDecoration: "none" }}>
-          <div className="header__option">
-            <span className="header__optionOne">Hello Guest</span>
+        <Link to={!user && "/login"} style={{ textDecoration: "none" }}>
+          <div onClick={handleAuthentication} className="header__option">
+            <span className="header__optionOne">
+              Hello {user ? user?.email : "Guest"}
+            </span>
 
-            <span className="header__optionTwo">Sign in</span>
+            <span className="header__optionTwo">
+              {user ? "Sign Out" : "Sign in"}
+            </span>
           </div>
         </Link>
 
