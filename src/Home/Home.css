@@ -21,31 +21,14 @@
   margin-bottom: -250px;
 }
 
-@media (max-width: 1160px) {
-  .home__img {
-    margin-top: 0px;
-    margin-bottom: -200px;
-  }
-
-  .home_row {
-    display: flex;
-    flex-wrap: wrap;
-    z-index: 1;
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-}
-
-@media (max-width: 800px) {
-  .home__img {
-    margin-top: 0px;
-    margin-bottom: -100px;
-  }
-}
-
-@media (max-width: 500px) {
-  .home_row {
+@media screen and (max-width: 768px) {
+  .home__row {
     display: flex;
     flex-direction: column;
+    margin-right: 20%;
+    margin-left: 15%;
+  }
+  .home__img {
+    height: 70vh;
   }
 }
