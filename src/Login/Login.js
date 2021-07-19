@@ -59,11 +59,7 @@ function Login() {
           </button>
         </form>
 
-        <p>
-          By signing-in you agree to our terms and condition of Use &
-          sale.Please see your privacy notice,our cookies notice and our
-          internet-based ads Notice
-        </p>
+        <p>By signing-in you agree to our terms and condition of Use & sale.</p>
         <button onClick={register} className="login__registerButton">
           Create your account
         </button>
